@@ -59,10 +59,10 @@ new_res <- 0.025  # Set the new resolution
 new_raster <- rast(ext(annual_mean_temp), resolution = new_res, crs = crs(annual_mean_temp))
 annual_mean_temp <- resample(x = annual_mean_temp, y = new_raster, method="bilinear")
 
-# Crop the resampled temperature data to match the boundaries of the United Kingdom
+# Crop the resampled temperature data to match the boundaries of SL
 sl_temp <- terra::crop(annual_mean_temp, y = sl0, mask = TRUE)
 
-# Plot the cropped annual mean temperature for the United Kingdom
+# Plot the cropped annual mean temperature for SL
 plot(sl_temp)
 
 
@@ -76,10 +76,10 @@ annual_mean_ppt <- mean(ppt_terra$ppt, na.rm = TRUE)
 new_raster <- rast(ext(annual_mean_ppt), resolution = new_res, crs = crs(annual_mean_ppt))
 annual_mean_ppt <- resample(x = annual_mean_ppt, y = new_raster, method = "bilinear")
 
-# Crop the resampled precipitation data to match the boundaries of the United Kingdom
+# Crop the resampled precipitation data to match the boundaries of SL
 sl_ppt <- terra::crop(annual_mean_ppt, y = sl0, mask = TRUE)
 
-# Plot the cropped annual mean precipitation for the United Kingdom
+# Plot the cropped annual mean precipitation for SL
 plot(sl_ppt)
 
 # Combine temperature and precipitation rasters into a single raster stack
@@ -120,14 +120,14 @@ map <- ggplot() +
   geom_raster(data = data, mapping = aes(x = x, y = y, fill = bi_class), color = NA, linewidth = 0.1, show.legend = FALSE) +
   # Apply the bivariate color scale using the selected palette and dimensions
   bi_scale_fill(pal = pallet, dim = 4, flip_axes = FALSE, rotate_pal = FALSE) +
-  # Overlay the first administrative level boundaries of the United Kingdom
+  # Overlay the first administrative level boundaries of SL
   geom_sf(data = sl1, fill = NA, color = "black", linewidth = 0.20) +
-  # Overlay the country-level boundary of the United Kingdom
+  # Overlay the country-level boundary of SL
   geom_sf(data = sl0, fill = NA, color = "black", linewidth = 0.40) +
   # Add labels for the map
   labs(title = "Sri Lanka: Temperature and Precipitation Patterns", 
        subtitle = "Mean temperature and precipitation patterns based on 50 years of data.",
-       caption = "Source: Terra Climate Data     Author: Thamali Kariyawasam") +
+       caption = "Source: Terra Climate Data     Author: XX") +
   # Customize the appearance of the title, subtitle, and caption
   theme(plot.title = element_text(hjust = 0.5, face = "bold"),
         plot.subtitle = element_text(hjust = 0.5),
@@ -151,6 +151,7 @@ finalPlot <- ggdraw() +
 # Display the final map with legend
 finalPlot
 
+# See other possible color palettes
 library(biscale)
 ?bi_pal  # Shows the help file with all available palettes
 bi_palettes_preview() 
